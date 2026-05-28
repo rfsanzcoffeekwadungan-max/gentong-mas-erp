@@ -1,8 +1,5 @@
-
-
 import { ReactNode, useState } from 'react';
 import { useLocation } from 'wouter';
-
 
 import {
   LayoutDashboard, Package, ShoppingCart, Users, Truck, DollarSign,
@@ -307,78 +304,107 @@ const navGroups: NavGroup[] = [
   },
 ];
 
-// ── Color tokens (login page palette) ──────────────────────────────────────
-const C = {
-  primary:      '#5B52D1',
-  primaryLight: '#8B80F9',
-  primaryBg:    'rgba(91,82,209,0.08)',
-  primaryBorder:'rgba(91,82,209,0.15)',
-  activeBg:     'rgba(91,82,209,0.10)',
-  hoverBg:      'rgba(91,82,209,0.06)',
-  border:       '#EDE9FE',
-  borderLight:  '#F3F0FF',
-  sidebarBg:    '#FFFFFF',
-  pageBg:       '#F5F3FF',
-  topbarBg:     '#FFFFFF',
-  textDark:     '#1E1B4B',
-  textMid:      '#6B7280',
-  textLight:    '#9CA3AF',
-  navDot:       '#C4B5FD',
-  danger:       '#EF4444',
-  childBorder:  '#DDD6FE',
+// ── Unified design tokens ────────────────────────────────────────────────────
+const T = {
+  primary:       '#5B52D1',
+  primaryHover:  '#4B43C1',
+  primaryLight:  '#8B80F9',
+  primaryMuted:  '#A78BFA',
+  activeBg:      'rgba(91,82,209,0.09)',
+  hoverBg:       'rgba(91,82,209,0.05)',
+  sidebarBg:     '#FFFFFF',
+  border:        '#EEEAF8',
+  borderChild:   '#DDD6FE',
+  textHeading:   '#111827',
+  textBody:      '#4B5563',
+  textMuted:     '#9CA3AF',
+  textSection:   '#A78BFA',
+  danger:        '#EF4444',
+  dangerBg:      'rgba(239,68,68,0.06)',
+  pageBg:        '#F5F4F9',
+  topbarBg:      '#FFFFFF',
 };
 
+// ── NavItem component ────────────────────────────────────────────────────────
 function NavItemComponent({ item }: { item: NavItem }) {
-  const [pathname] = useLocation();
-  const isChildActive = item.children?.some((c) => pathname.startsWith(c.href.split('?')[0])) ?? false;
+  const [pathname, navigate] = useLocation();
+
+  const isChildActive = item.children?.some((c) => {
+    const path = c.href.split('?')[0];
+    return pathname === path || pathname.startsWith(path + '/');
+  }) ?? false;
+
   const [open, setOpen] = useState(isChildActive);
 
   if (item.children) {
     return (
       <div>
+        {/* Parent row */}
         <button
-          onClick={() => setOpen(!open)}
-          className="w-full flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm transition-colors"
+          onClick={() => setOpen((v) => !v)}
+          className="w-full flex items-center gap-2.5 rounded-lg px-2.5 py-[7px] text-left transition-colors duration-150 group"
           style={{
-            backgroundColor: open ? C.activeBg : 'transparent',
-            color: open ? C.primary : C.textMid,
+            backgroundColor: open ? T.activeBg : 'transparent',
+            color: open ? T.primary : T.textBody,
           }}
+          onMouseEnter={(e) => { if (!open) e.currentTarget.style.backgroundColor = T.hoverBg; }}
+          onMouseLeave={(e) => { if (!open) e.currentTarget.style.backgroundColor = 'transparent'; }}
         >
-          <item.icon className="h-4 w-4 flex-shrink-0" />
-          <span className="flex-1 text-left font-medium">{item.label}</span>
-          {item.badge && (
-            <span className="flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-bold text-white mr-1" style={{ backgroundColor: C.danger }}>
+          <item.icon
+            className="h-4 w-4 flex-shrink-0 transition-colors duration-150"
+            style={{ color: open ? T.primary : T.textMuted }}
+          />
+          <span className="flex-1 text-[13px] font-medium leading-none truncate">
+            {item.label}
+          </span>
+          {item.badge != null && item.badge > 0 && (
+            <span
+              className="flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-bold text-white"
+              style={{ backgroundColor: T.danger }}
+            >
               {item.badge}
             </span>
           )}
           <ChevronRight
-            className="h-3.5 w-3.5 transition-transform duration-200 flex-shrink-0"
-            style={{ transform: open ? 'rotate(90deg)' : 'rotate(0deg)', color: open ? C.primary : C.textLight }}
+            className="h-3.5 w-3.5 flex-shrink-0 transition-transform duration-200"
+            style={{
+              color: open ? T.primary : T.textMuted,
+              transform: open ? 'rotate(90deg)' : 'rotate(0deg)',
+            }}
           />
         </button>
 
-        <div className="overflow-hidden transition-all duration-200" style={{ maxHeight: open ? '800px' : '0px' }}>
-          <div className="ml-4 mt-0.5 pl-3 pb-1 space-y-0.5" style={{ borderLeft: `2px solid ${C.childBorder}` }}>
+        {/* Children */}
+        <div
+          className="overflow-hidden transition-all duration-200 ease-in-out"
+          style={{ maxHeight: open ? '800px' : '0px', opacity: open ? 1 : 0 }}
+        >
+          <div
+            className="ml-[15px] mt-0.5 mb-1 pl-3 space-y-px"
+            style={{ borderLeft: `1.5px solid ${T.borderChild}` }}
+          >
             {item.children.map((child) => {
               const hrefPath = child.href.split('?')[0];
               const active = pathname === hrefPath || (pathname.startsWith(hrefPath + '/') && hrefPath !== '/');
               return (
-                <a
+                <button
                   key={child.href}
-                  href={child.href}
-                  className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-[13px] transition-colors"
+                  onClick={() => navigate(child.href)}
+                  className="w-full flex items-center gap-2 rounded-md px-2.5 py-[6px] text-left transition-colors duration-150"
                   style={{
-                    backgroundColor: active ? C.activeBg : 'transparent',
-                    color: active ? C.primary : C.textMid,
-                    fontWeight: active ? 600 : 400,
+                    backgroundColor: active ? T.activeBg : 'transparent',
+                    color: active ? T.primary : T.textBody,
+                    fontWeight: active ? 500 : 400,
                   }}
+                  onMouseEnter={(e) => { if (!active) { e.currentTarget.style.backgroundColor = T.hoverBg; e.currentTarget.style.color = T.textHeading; } }}
+                  onMouseLeave={(e) => { if (!active) { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = T.textBody; } }}
                 >
                   <span
-                    className="h-1.5 w-1.5 rounded-full flex-shrink-0"
-                    style={{ backgroundColor: active ? C.primary : C.navDot }}
+                    className="h-1 w-1 rounded-full flex-shrink-0"
+                    style={{ backgroundColor: active ? T.primary : T.borderChild }}
                   />
-                  {child.label}
-                </a>
+                  <span className="text-[12.5px] leading-none truncate">{child.label}</span>
+                </button>
               );
             })}
           </div>
@@ -387,23 +413,201 @@ function NavItemComponent({ item }: { item: NavItem }) {
     );
   }
 
+  // Leaf item
   const active = pathname === item.href;
   return (
-    <a href={item.href!}
-      className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm transition-colors"
+    <button
+      onClick={() => navigate(item.href!)}
+      className="w-full flex items-center gap-2.5 rounded-lg px-2.5 py-[7px] text-left transition-colors duration-150"
       style={{
-        backgroundColor: active ? C.activeBg : 'transparent',
-        color: active ? C.primary : C.textMid,
-        fontWeight: active ? 600 : 400,
+        backgroundColor: active ? T.activeBg : 'transparent',
+        color: active ? T.primary : T.textBody,
       }}
+      onMouseEnter={(e) => { if (!active) { e.currentTarget.style.backgroundColor = T.hoverBg; e.currentTarget.style.color = T.textHeading; } }}
+      onMouseLeave={(e) => { if (!active) { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = T.textBody; } }}
     >
-      <item.icon className="h-4 w-4 flex-shrink-0" style={{ color: active ? C.primary : C.textMid }} />
-      <span>{item.label}</span>
-      {active && <span className="ml-auto h-1.5 w-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: C.primary }} />}
-    </a>
+      <item.icon
+        className="h-4 w-4 flex-shrink-0"
+        style={{ color: active ? T.primary : T.textMuted }}
+      />
+      <span className="flex-1 text-[13px] font-medium leading-none truncate">{item.label}</span>
+      {item.badge != null && item.badge > 0 && (
+        <span
+          className="flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-bold text-white"
+          style={{ backgroundColor: T.danger }}
+        >
+          {item.badge}
+        </span>
+      )}
+      {active && (
+        <span className="h-1.5 w-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: T.primary }} />
+      )}
+    </button>
   );
 }
 
+// ── Sidebar content ──────────────────────────────────────────────────────────
+function SidebarInner({
+  user,
+  onLogout,
+  onClose,
+}: {
+  user: { name?: string | null; email?: string | null; role?: string | null; roles?: string[] | null } | null;
+  onLogout: () => void;
+  onClose?: () => void;
+}) {
+  const [userDropdown, setUserDropdown] = useState(false);
+  const displayRole = (user as any)?.role ?? user?.roles?.[0] ?? 'Super Admin';
+
+  return (
+    <div className="flex flex-col h-full" style={{ backgroundColor: T.sidebarBg }}>
+
+      {/* Brand header */}
+      <div
+        className="flex items-center gap-3 px-4 py-3.5 flex-shrink-0"
+        style={{ borderBottom: `1px solid ${T.border}` }}
+      >
+        <div
+          className="flex h-8 w-8 items-center justify-center rounded-lg text-white font-bold text-sm flex-shrink-0"
+          style={{
+            background: `linear-gradient(135deg, ${T.primary}, ${T.primaryLight})`,
+            boxShadow: '0 2px 8px rgba(91,82,209,0.35)',
+          }}
+        >
+          G
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="text-sm font-bold leading-none truncate" style={{ color: T.textHeading }}>
+            Gentong Mas
+          </p>
+          <p className="text-[11px] mt-0.5" style={{ color: T.textMuted }}>ERP System v2.0</p>
+        </div>
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="flex-shrink-0 p-1 rounded-md transition-colors lg:hidden"
+            style={{ color: T.textMuted }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = T.hoverBg)}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+          >
+            <X className="h-4 w-4" />
+          </button>
+        )}
+      </div>
+
+      {/* Navigation */}
+      <nav
+        className="flex-1 overflow-y-auto px-2.5 py-3"
+        style={{ scrollbarWidth: 'thin', scrollbarColor: `${T.border} transparent` }}
+      >
+        <div className="space-y-5">
+          {navGroups.map((group) => (
+            <div key={group.label}>
+              {/* Section label */}
+              <p
+                className="px-2.5 pb-1.5 text-[10.5px] font-semibold uppercase tracking-[0.08em]"
+                style={{ color: T.textSection }}
+              >
+                {group.label}
+              </p>
+              {/* Items */}
+              <div className="space-y-px">
+                {group.items.map((item) => (
+                  <NavItemComponent key={item.label} item={item} />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </nav>
+
+      {/* User panel */}
+      <div className="px-2.5 py-3 flex-shrink-0" style={{ borderTop: `1px solid ${T.border}` }}>
+        <div className="relative">
+          <button
+            onClick={() => setUserDropdown((v) => !v)}
+            className="w-full flex items-center gap-2.5 rounded-lg px-2.5 py-2 transition-colors duration-150"
+            style={{
+              backgroundColor: userDropdown ? T.activeBg : T.hoverBg,
+              border: `1px solid ${T.border}`,
+            }}
+            onMouseEnter={(e) => { if (!userDropdown) e.currentTarget.style.backgroundColor = T.activeBg; }}
+            onMouseLeave={(e) => { if (!userDropdown) e.currentTarget.style.backgroundColor = T.hoverBg; }}
+          >
+            <div
+              className="flex h-7 w-7 items-center justify-center rounded-full text-white text-xs font-bold flex-shrink-0"
+              style={{ background: `linear-gradient(135deg, ${T.primary}, ${T.primaryLight})` }}
+            >
+              {user?.name?.charAt(0)?.toUpperCase() ?? 'U'}
+            </div>
+            <div className="flex-1 text-left min-w-0">
+              <p className="text-[12.5px] font-semibold leading-none truncate" style={{ color: T.textHeading }}>
+                {user?.name ?? 'Admin'}
+              </p>
+              <p className="text-[11px] mt-0.5 truncate capitalize" style={{ color: T.textMuted }}>
+                {displayRole}
+              </p>
+            </div>
+            <ChevronRight
+              className="h-3.5 w-3.5 flex-shrink-0 transition-transform duration-200"
+              style={{
+                color: T.textMuted,
+                transform: userDropdown ? 'rotate(-90deg)' : 'rotate(90deg)',
+              }}
+            />
+          </button>
+
+          {userDropdown && (
+            <div
+              className="absolute bottom-full left-0 right-0 mb-2 rounded-xl overflow-hidden"
+              style={{
+                backgroundColor: '#FFFFFF',
+                border: `1px solid ${T.border}`,
+                boxShadow: '0 8px 24px rgba(91,82,209,0.12)',
+              }}
+            >
+              <a
+                href="/settings/users"
+                className="flex items-center gap-2.5 px-3.5 py-2.5 text-[13px] transition-colors"
+                style={{ color: T.textBody }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = T.hoverBg)}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+                onClick={() => setUserDropdown(false)}
+              >
+                <User className="h-3.5 w-3.5 flex-shrink-0" style={{ color: T.textMuted }} />
+                Profil Saya
+              </a>
+              <a
+                href="/settings"
+                className="flex items-center gap-2.5 px-3.5 py-2.5 text-[13px] transition-colors"
+                style={{ color: T.textBody }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = T.hoverBg)}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+                onClick={() => setUserDropdown(false)}
+              >
+                <Settings className="h-3.5 w-3.5 flex-shrink-0" style={{ color: T.textMuted }} />
+                Pengaturan
+              </a>
+              <div style={{ borderTop: `1px solid ${T.border}` }} />
+              <button
+                onClick={() => { setUserDropdown(false); onLogout(); }}
+                className="w-full flex items-center gap-2.5 px-3.5 py-2.5 text-[13px] transition-colors"
+                style={{ color: T.danger }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = T.dangerBg)}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+              >
+                <LogOut className="h-3.5 w-3.5 flex-shrink-0" />
+                Keluar
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Layout ───────────────────────────────────────────────────────────────────
 interface OdooLayoutProps {
   children: ReactNode;
   title?: string;
@@ -412,8 +616,8 @@ interface OdooLayoutProps {
 
 export function OdooLayout({ children, title, subtitle }: OdooLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [userDropdown, setUserDropdown] = useState(false);
   const [appLauncher, setAppLauncher] = useState(false);
+  const [, navigate] = useLocation();
 
   const APP_LAUNCHER_ITEMS = [
     { label: 'Sales App',   url: 'http://localhost:3002', color: '#0891B2', icon: ShoppingCart },
@@ -421,9 +625,9 @@ export function OdooLayout({ children, title, subtitle }: OdooLayoutProps) {
     { label: 'POS App',     url: 'http://localhost:3004', color: '#E64A19', icon: Monitor },
     { label: 'Driver App',  url: 'http://localhost:3005', color: '#1D4ED8', icon: Truck },
   ];
+
   const { user, logout } = useAuthStore();
   const { notifications } = useNotificationStore();
-  const [, navigate] = useLocation();
   const unreadCount = notifications.length;
 
   const handleLogout = () => {
@@ -432,195 +636,150 @@ export function OdooLayout({ children, title, subtitle }: OdooLayoutProps) {
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: C.pageBg }}>
+    <div className="min-h-screen" style={{ backgroundColor: T.pageBg }}>
+
+      {/* Mobile overlay */}
       {sidebarOpen && (
-        <div className="fixed inset-0 z-40 bg-black/40 lg:hidden" onClick={() => setSidebarOpen(false)} />
+        <div
+          className="fixed inset-0 z-40 bg-black/30 backdrop-blur-[2px] lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
       )}
 
       {/* ── Sidebar ── */}
       <aside
-        className={`fixed left-0 top-0 z-50 h-full flex flex-col overflow-hidden transition-transform duration-300 lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
-        style={{ width: '260px', backgroundColor: C.sidebarBg, borderRight: `1px solid ${C.border}` }}
+        className={`fixed left-0 top-0 z-50 h-full flex flex-col overflow-hidden transition-transform duration-300 ease-in-out lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        style={{
+          width: '252px',
+          borderRight: `1px solid ${T.border}`,
+          boxShadow: sidebarOpen ? '4px 0 24px rgba(91,82,209,0.08)' : 'none',
+        }}
       >
-        {/* Logo */}
-        <div className="flex items-center gap-3 px-5 py-4" style={{ borderBottom: `1px solid ${C.border}` }}>
-          <div
-            className="flex h-9 w-9 items-center justify-center rounded-xl text-white font-bold text-base flex-shrink-0"
-            style={{ background: `linear-gradient(135deg, ${C.primary}, ${C.primaryLight})`, boxShadow: `0 4px 12px ${C.primaryBorder}` }}
-          >
-            G
-          </div>
-          <div>
-            <h2 className="text-sm font-bold leading-tight" style={{ color: C.textDark }}>Gentong Mas</h2>
-            <p className="text-[11px]" style={{ color: C.textLight }}>ERP System v2.0</p>
-          </div>
-          <button className="ml-auto lg:hidden" onClick={() => setSidebarOpen(false)} style={{ color: C.textLight }}>
-            <X className="h-5 w-5" />
-          </button>
-        </div>
-
-        {/* Nav */}
-        <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-5 scrollbar-thin">
-          {navGroups.map((group) => (
-            <div key={group.label}>
-              <p className="px-3 mb-1.5 text-[10px] font-bold tracking-widest" style={{ color: C.primaryLight }}>
-                {group.label}
-              </p>
-              <div className="space-y-0.5">
-                {group.items.map((item) => (
-                  <NavItemComponent key={item.label} item={item} />
-                ))}
-              </div>
-            </div>
-          ))}
-        </nav>
-
-        {/* User panel */}
-        <div className="px-3 py-3" style={{ borderTop: `1px solid ${C.border}` }}>
-          <div className="relative">
-            <button
-              onClick={() => setUserDropdown(!userDropdown)}
-              className="w-full flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm transition-colors"
-              style={{ backgroundColor: C.hoverBg, border: `1px solid ${C.border}` }}
-            >
-              <div
-                className="flex h-7 w-7 items-center justify-center rounded-full text-white text-xs font-bold flex-shrink-0"
-                style={{ background: `linear-gradient(135deg, ${C.primary}, ${C.primaryLight})` }}
-              >
-                {user?.name?.charAt(0)?.toUpperCase() ?? 'U'}
-              </div>
-              <div className="flex-1 text-left overflow-hidden">
-                <p className="text-xs font-semibold truncate" style={{ color: C.textDark }}>{user?.name ?? 'Admin'}</p>
-                <p className="text-[10px] truncate" style={{ color: C.textLight }}>{(user as any)?.role ?? (user?.roles?.[0] ?? 'Super Admin')}</p>
-              </div>
-              <ChevronRight
-                className="h-3.5 w-3.5 flex-shrink-0 transition-transform duration-200"
-                style={{ color: C.textLight, transform: userDropdown ? 'rotate(90deg)' : 'rotate(0deg)' }}
-              />
-            </button>
-
-            {userDropdown && (
-              <div
-                className="absolute bottom-full left-0 right-0 mb-2 rounded-2xl overflow-hidden shadow-xl"
-                style={{ backgroundColor: '#FFFFFF', border: `1px solid ${C.border}`, boxShadow: `0 8px 32px rgba(91,82,209,0.15)` }}
-              >
-                <a href="/settings/users"
-                  className="flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors"
-                  style={{ color: C.textDark }}
-                  onMouseEnter={e => (e.currentTarget.style.backgroundColor = C.hoverBg)}
-                  onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
-                  onClick={() => setUserDropdown(false)}
-                >
-                  <User className="h-4 w-4" style={{ color: C.textLight }} /> Profil Saya
-                </a>
-                <a href="/settings"
-                  className="flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors"
-                  style={{ color: C.textDark }}
-                  onMouseEnter={e => (e.currentTarget.style.backgroundColor = C.hoverBg)}
-                  onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
-                  onClick={() => setUserDropdown(false)}
-                >
-                  <Settings className="h-4 w-4" style={{ color: C.textLight }} /> Pengaturan
-                </a>
-                <div style={{ borderTop: `1px solid ${C.border}` }} />
-                <button
-                  onClick={handleLogout}
-                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors"
-                  style={{ color: C.danger }}
-                  onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'rgba(239,68,68,0.05)')}
-                  onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
-                >
-                  <LogOut className="h-4 w-4" /> Keluar
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
+        <SidebarInner
+          user={user}
+          onLogout={handleLogout}
+          onClose={() => setSidebarOpen(false)}
+        />
       </aside>
 
-      {/* ── Main ── */}
-      <main className="lg:pl-[260px] min-h-screen">
+      {/* ── Main area ── */}
+      <main className="lg:pl-[252px] min-h-screen">
+
         {/* Topbar */}
         <header
-          className="sticky top-0 z-30 flex items-center gap-4 px-6 py-3"
+          className="sticky top-0 z-30 flex items-center h-14 px-5 gap-3"
           style={{
-            backgroundColor: C.topbarBg,
-            borderBottom: `1px solid ${C.border}`,
-            boxShadow: '0 1px 8px rgba(91,82,209,0.06)',
+            backgroundColor: T.topbarBg,
+            borderBottom: `1px solid ${T.border}`,
+            boxShadow: '0 1px 0 rgba(0,0,0,0.04)',
           }}
         >
-          <button className="lg:hidden p-1.5 rounded-xl transition-colors" style={{ color: C.textMid }} onClick={() => setSidebarOpen(true)}
-            onMouseEnter={e => (e.currentTarget.style.backgroundColor = C.hoverBg)}
-            onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
+          {/* Mobile hamburger */}
+          <button
+            className="lg:hidden p-1.5 rounded-lg transition-colors flex-shrink-0"
+            style={{ color: T.textMuted }}
+            onClick={() => setSidebarOpen(true)}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = T.hoverBg)}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
           >
             <Menu className="h-5 w-5" />
           </button>
 
+          {/* Page title */}
           {(title || subtitle) && (
-            <div className="hidden sm:block">
-              {title && <h1 className="text-sm font-bold" style={{ color: C.textDark }}>{title}</h1>}
-              {subtitle && <p className="text-xs" style={{ color: C.textLight }}>{subtitle}</p>}
+            <div className="hidden sm:block min-w-0">
+              {title && (
+                <h1 className="text-sm font-semibold leading-none truncate" style={{ color: T.textHeading }}>
+                  {title}
+                </h1>
+              )}
+              {subtitle && (
+                <p className="text-xs mt-0.5 truncate" style={{ color: T.textMuted }}>{subtitle}</p>
+              )}
             </div>
           )}
 
           <div className="flex-1" />
 
-          <div className="flex items-center gap-1.5">
-            <a href="/notifications"
-              className="relative p-2 rounded-xl transition-colors"
-              style={{ color: C.textMid }}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = C.hoverBg)}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
+          {/* Right actions */}
+          <div className="flex items-center gap-1">
+
+            {/* Notifications */}
+            <a
+              href="/notifications"
+              className="relative p-2 rounded-lg transition-colors"
+              style={{ color: T.textMuted }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = T.hoverBg)}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
             >
-              <Bell className="h-5 w-5" />
+              <Bell className="h-[18px] w-[18px]" />
               {unreadCount > 0 && (
-                <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full text-[10px] font-bold text-white" style={{ backgroundColor: C.danger }}>
+                <span
+                  className="absolute top-1.5 right-1.5 flex h-3.5 w-3.5 items-center justify-center rounded-full text-[9px] font-bold text-white"
+                  style={{ backgroundColor: T.danger }}
+                >
                   {unreadCount > 9 ? '9+' : unreadCount}
                 </span>
               )}
             </a>
-            <a href="/ai/chatbot"
-              className="p-2 rounded-xl transition-colors"
-              style={{ color: C.primary }}
+
+            {/* AI */}
+            <a
+              href="/ai/chatbot"
+              className="p-2 rounded-lg transition-colors"
               title="AI Assistant"
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = C.hoverBg)}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
+              style={{ color: T.primaryLight }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = T.hoverBg)}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
             >
-              <Brain className="h-5 w-5" />
+              <Brain className="h-[18px] w-[18px]" />
             </a>
-            <a href="/settings"
-              className="p-2 rounded-xl transition-colors"
-              style={{ color: C.textMid }}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = C.hoverBg)}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
+
+            {/* Settings */}
+            <a
+              href="/settings"
+              className="p-2 rounded-lg transition-colors"
+              style={{ color: T.textMuted }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = T.hoverBg)}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
             >
-              <Settings className="h-5 w-5" />
+              <Settings className="h-[18px] w-[18px]" />
             </a>
 
             {/* App Launcher */}
             <div className="relative">
               <button
-                onClick={() => setAppLauncher(!appLauncher)}
-                className="p-2 rounded-xl transition-colors"
+                onClick={() => setAppLauncher((v) => !v)}
+                className="p-2 rounded-lg transition-colors"
                 title="Buka App Lain"
-                style={{ color: appLauncher ? C.primary : C.textMid, backgroundColor: appLauncher ? C.activeBg : 'transparent' }}
-                onMouseEnter={e => { if (!appLauncher) e.currentTarget.style.backgroundColor = C.hoverBg; }}
-                onMouseLeave={e => { if (!appLauncher) e.currentTarget.style.backgroundColor = 'transparent'; }}
+                style={{
+                  color: appLauncher ? T.primary : T.textMuted,
+                  backgroundColor: appLauncher ? T.activeBg : 'transparent',
+                }}
+                onMouseEnter={(e) => { if (!appLauncher) e.currentTarget.style.backgroundColor = T.hoverBg; }}
+                onMouseLeave={(e) => { if (!appLauncher) e.currentTarget.style.backgroundColor = appLauncher ? T.activeBg : 'transparent'; }}
               >
-                <LayoutGrid className="h-5 w-5" />
+                <LayoutGrid className="h-[18px] w-[18px]" />
               </button>
 
               {appLauncher && (
                 <>
                   <div className="fixed inset-0 z-40" onClick={() => setAppLauncher(false)} />
                   <div
-                    className="absolute right-0 top-full mt-2 z-50 rounded-2xl overflow-hidden shadow-2xl"
-                    style={{ width: 240, backgroundColor: '#FFFFFF', border: `1px solid ${C.border}`, boxShadow: '0 8px 32px rgba(91,82,209,0.18)' }}
+                    className="absolute right-0 top-full mt-2 z-50 rounded-xl overflow-hidden"
+                    style={{
+                      width: 232,
+                      backgroundColor: '#FFFFFF',
+                      border: `1px solid ${T.border}`,
+                      boxShadow: '0 8px 32px rgba(91,82,209,0.14)',
+                    }}
                   >
-                    <div className="px-4 py-3" style={{ borderBottom: `1px solid ${C.border}` }}>
-                      <p className="text-xs font-bold tracking-widest" style={{ color: C.primaryLight }}>APP LAUNCHER</p>
+                    <div className="px-4 py-2.5" style={{ borderBottom: `1px solid ${T.border}` }}>
+                      <p className="text-[10.5px] font-semibold uppercase tracking-[0.08em]" style={{ color: T.textSection }}>
+                        App Launcher
+                      </p>
                     </div>
-                    <div className="p-2 grid grid-cols-2 gap-2">
+                    <div className="p-2 grid grid-cols-2 gap-1.5">
                       {APP_LAUNCHER_ITEMS.map((app) => {
                         const Icon = app.icon;
                         return (
@@ -630,40 +789,62 @@ export function OdooLayout({ children, title, subtitle }: OdooLayoutProps) {
                             target="_blank"
                             rel="noreferrer"
                             onClick={() => setAppLauncher(false)}
-                            className="flex flex-col items-center gap-2 p-3 rounded-xl transition-all text-center"
-                            style={{ border: `1.5px solid ${C.border}` }}
-                            onMouseEnter={e => { e.currentTarget.style.borderColor = app.color; e.currentTarget.style.backgroundColor = `${app.color}08`; }}
-                            onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.backgroundColor = 'transparent'; }}
+                            className="flex flex-col items-center gap-2 p-3 rounded-lg transition-all text-center"
+                            style={{ border: `1px solid ${T.border}` }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.borderColor = app.color;
+                              e.currentTarget.style.backgroundColor = `${app.color}08`;
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.borderColor = T.border;
+                              e.currentTarget.style.backgroundColor = 'transparent';
+                            }}
                           >
-                            <div className="flex h-9 w-9 items-center justify-center rounded-xl" style={{ backgroundColor: `${app.color}15` }}>
-                              <Icon className="h-4.5 w-4.5" style={{ color: app.color, width: 18, height: 18 }} />
+                            <div
+                              className="flex h-8 w-8 items-center justify-center rounded-lg"
+                              style={{ backgroundColor: `${app.color}14` }}
+                            >
+                              <Icon style={{ color: app.color, width: 16, height: 16 }} />
                             </div>
                             <div>
-                              <p className="text-xs font-semibold leading-tight" style={{ color: C.textDark }}>{app.label}</p>
-                              <ExternalLink className="h-2.5 w-2.5 inline mt-0.5" style={{ color: C.textLight }} />
+                              <p className="text-[11.5px] font-semibold leading-tight" style={{ color: T.textHeading }}>
+                                {app.label}
+                              </p>
+                              <ExternalLink className="h-2.5 w-2.5 inline mt-0.5" style={{ color: T.textMuted }} />
                             </div>
                           </a>
                         );
                       })}
                     </div>
-                    <div className="px-3 pb-3">
-                      <a href="/monitoring"
+                    <div className="px-2.5 pb-2.5">
+                      <a
+                        href="/monitoring"
                         onClick={() => setAppLauncher(false)}
-                        className="flex items-center justify-center gap-1.5 w-full py-2 rounded-xl text-xs font-semibold transition-colors"
-                        style={{ backgroundColor: C.activeBg, color: C.primary }}
-                        onMouseEnter={e => (e.currentTarget.style.backgroundColor = C.primaryBg)}
-                        onMouseLeave={e => (e.currentTarget.style.backgroundColor = C.activeBg)}
+                        className="flex items-center justify-center gap-1.5 w-full py-2 rounded-lg text-xs font-semibold transition-colors"
+                        style={{ backgroundColor: T.activeBg, color: T.primary }}
+                        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(91,82,209,0.14)')}
+                        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = T.activeBg)}
                       >
-                        <LayoutGrid className="h-3.5 w-3.5" /> Command Center
+                        <LayoutGrid className="h-3.5 w-3.5" />
+                        Command Center
                       </a>
                     </div>
                   </div>
                 </>
               )}
             </div>
+
+            {/* User avatar */}
+            <div
+              className="flex h-7 w-7 items-center justify-center rounded-full text-white text-xs font-bold ml-1 flex-shrink-0"
+              style={{ background: `linear-gradient(135deg, ${T.primary}, ${T.primaryLight})` }}
+            >
+              {user?.name?.charAt(0)?.toUpperCase() ?? 'U'}
+            </div>
           </div>
         </header>
 
+        {/* Page content */}
         <div className="p-6">
           {children}
         </div>
