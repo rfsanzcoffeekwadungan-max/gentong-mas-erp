@@ -26,6 +26,9 @@ if (!basePath) {
   );
 }
 
+const nestjsPort = process.env.NESTJS_PORT || 3000;
+const internalApiPort = process.env.API_PORT || 8080;
+
 export default defineConfig({
   base: basePath,
   plugins: [
@@ -67,8 +70,13 @@ export default defineConfig({
       strict: true,
     },
     proxy: {
+      "/nestjs": {
+        target: `http://localhost:${nestjsPort}`,
+        changeOrigin: true,
+        rewrite: (p) => p.replace(/^\/nestjs/, ""),
+      },
       "/api": {
-        target: `http://localhost:${process.env.API_PORT || 8080}`,
+        target: `http://localhost:${internalApiPort}`,
         changeOrigin: true,
       },
     },

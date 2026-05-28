@@ -1,51 +1,25 @@
-import { api } from '@/api';
+import { salesApi } from '@/api/sales.api';
+import type { SalesOrder, Quotation, SalesSummary, PaginatedResponse } from '@/types';
 
-export interface SalesOrder {
-  id: string;
-  order_number: string;
-  customer: string;
-  amount: number;
-  status: 'draft' | 'confirmed' | 'shipped' | 'done' | 'cancelled';
-  date: string;
-  sales_person?: string;
-}
-
-export interface SalesSummary {
-  total_revenue: number;
-  total_orders: number;
-  avg_order_value: number;
-  growth_vs_last_month: number;
-}
-
-export interface Quotation {
-  id: string;
-  quotation_number: string;
-  customer: string;
-  amount: number;
-  status: string;
-  date: string;
-  expiry_date: string;
-}
+export type { SalesOrder, Quotation, SalesSummary };
 
 export const salesService = {
-  getSummary: () =>
-    api.get<SalesSummary>('/sales/summary').then((r) => r.data),
+  getSummary: () => salesApi.getSummary(),
 
   getOrders: (params?: { page?: number; limit?: number; status?: string; search?: string }) =>
-    api.get<{ data: SalesOrder[]; total: number }>('/sales/orders', { params }).then((r) => r.data),
+    salesApi.getOrders(params),
 
-  getOrder: (id: string) =>
-    api.get<SalesOrder>(`/sales/orders/${id}`).then((r) => r.data),
+  getOrder: (id: string) => salesApi.getOrder(id),
 
-  createOrder: (dto: Partial<SalesOrder>) =>
-    api.post<SalesOrder>('/sales/orders', dto).then((r) => r.data),
+  createOrder: (dto: Partial<SalesOrder>) => salesApi.createOrder(dto as any),
 
   getQuotations: (params?: { page?: number; limit?: number }) =>
-    api.get<{ data: Quotation[]; total: number }>('/sales/quotations', { params }).then((r) => r.data),
+    salesApi.getQuotations(params),
 
   getFaktur: (params?: { page?: number; limit?: number }) =>
-    api.get('/sales/faktur', { params }).then((r) => r.data),
+    salesApi.getFaktur(params),
 
-  getList: () =>
-    api.get('/sales/list').then((r) => r.data),
+  getList: () => salesApi.getOrders({ limit: 100 }),
 };
+
+export type { PaginatedResponse };
