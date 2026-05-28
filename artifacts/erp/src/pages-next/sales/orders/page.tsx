@@ -478,7 +478,7 @@ export default function SalesOrdersPage() {
                       </td>
                       <td className="px-6 py-3.5 text-sm" style={{ color: '#9CA3AF' }}>{o.salesName || '–'}</td>
                       <td className="px-6 py-3.5 text-sm font-semibold" style={{ color: '#1E1B4B' }}>
-                        {Number(o.totalHarga || 0).toLocaleString('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 })}
+                        {Number(o.total || o.totalHarga || 0).toLocaleString('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 })}
                       </td>
                       <td className="px-6 py-3.5">
                         <span className="inline-flex px-2.5 py-1 rounded-full text-xs font-semibold" style={{ color: st.color, backgroundColor: st.bg }}>{st.label}</span>

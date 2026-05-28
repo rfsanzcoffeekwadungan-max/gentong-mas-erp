@@ -137,9 +137,9 @@ export default function QuotationsPage() {
                     return (
                       <tr key={item.id} style={{ borderBottom: '1px solid #F5F3FF' }} className="hover:bg-gray-50 transition-colors">
                         <td className="px-6 py-3 font-semibold text-xs" style={{ color: C }}>QUO-{String(i + 1).padStart(4, '0')}</td>
-                        <td className="px-6 py-3" style={{ color: '#1E1B4B' }}>{item.customerName ?? '-'}</td>
+                        <td className="px-6 py-3" style={{ color: '#1E1B4B' }}>{item.namaCustomer ?? item.customerName ?? '-'}</td>
                         <td className="px-6 py-3" style={{ color: '#6B7280' }}>{item.createdAt ? new Date(item.createdAt).toLocaleDateString('id-ID') : '-'}</td>
-                        <td className="px-6 py-3 font-semibold" style={{ color: '#1E1B4B' }}>{Number(item.totalAmount ?? 0).toLocaleString('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 })}</td>
+                        <td className="px-6 py-3 font-semibold" style={{ color: '#1E1B4B' }}>{Number(item.total ?? item.totalAmount ?? 0).toLocaleString('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 })}</td>
                         <td className="px-6 py-3" style={{ color: '#6B7280' }}>{item.paymentTerm ?? 'Net 30'}</td>
                         <td className="px-6 py-3">
                           <span className="px-2 py-1 rounded-full text-xs font-semibold" style={{ color: s.color, backgroundColor: s.bg }}>{s.label}</span>

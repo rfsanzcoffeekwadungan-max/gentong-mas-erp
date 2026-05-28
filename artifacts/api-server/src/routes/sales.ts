@@ -8,8 +8,11 @@ import {
   productsTable,
 } from "@workspace/db";
 import { eq, ilike, and, or, desc, sql, count, sum } from "drizzle-orm";
+import { requireAuth } from "../middleware/auth";
 
 const router = Router();
+
+router.use(requireAuth);
 
 function generateOrderNumber(type: string) {
   const prefix = type === "quotation" ? "QT" : "SO";
