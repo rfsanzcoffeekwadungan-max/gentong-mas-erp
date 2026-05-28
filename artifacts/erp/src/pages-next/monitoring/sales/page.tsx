@@ -8,7 +8,7 @@ import { ShoppingCart, ExternalLink, RefreshCw, Search, Filter } from 'lucide-re
 
 const C = {
   primary: '#5B52D1', border: '#EDE9FE', textDark: '#1E1B4B',
-  textMid: '#6B7280', textLight: '#9CA3AF', appColor: '#0891B2',
+  textMid: '#6B7280', textLight: '#9CA3AF', appColor: '#5B52D1',
 };
 
 type TabKey = 'orders' | 'quotations' | 'invoices';

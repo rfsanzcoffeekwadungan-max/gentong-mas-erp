@@ -6,7 +6,7 @@ import { useAuthStore } from '@/store/useAuthStore';
 import SettingsShell from '@/layout/SettingsShell';
 import { Activity, Search, Download, Filter } from 'lucide-react';
 
-const C = '#546E7A';
+const C = '#5B52D1';
 
 const ACTION_COLORS: Record<string, { color: string; bg: string }> = {
   CREATE:  { color: '#4CAF50', bg: 'rgba(76,175,80,.1)' },

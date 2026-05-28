@@ -6,7 +6,7 @@ import { useAuthStore } from '@/store/useAuthStore';
 import SettingsShell from '@/layout/SettingsShell';
 import { Shield, Plus, X, Check, Edit } from 'lucide-react';
 
-const C = '#546E7A';
+const C = '#5B52D1';
 
 const MODULES_LIST = ['Dashboard', 'Penjualan', 'Quotation', 'Invoice', 'CRM', 'Inventory', 'Pembelian', 'Manufaktur', 'Akuntansi', 'Jurnal', 'HR & Karyawan', 'Payroll', 'Rekrutmen', 'Servis', 'Armada', 'Marketplace', 'Laporan', 'Pengaturan'];
 const PERMS = ['Lihat', 'Buat', 'Edit', 'Hapus', 'Approve'];

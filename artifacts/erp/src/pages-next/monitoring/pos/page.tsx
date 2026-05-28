@@ -9,7 +9,7 @@ import { Monitor, ExternalLink, RefreshCw, Search, DollarSign, ShoppingCart, Use
 
 const C = {
   primary: '#5B52D1', border: '#EDE9FE', textDark: '#1E1B4B',
-  textMid: '#6B7280', textLight: '#9CA3AF', appColor: '#E64A19',
+  textMid: '#6B7280', textLight: '#9CA3AF', appColor: '#5B52D1',
 };
 
 const formatRp = (v: any) => v != null ? `Rp ${Number(v).toLocaleString('id')}` : '–';

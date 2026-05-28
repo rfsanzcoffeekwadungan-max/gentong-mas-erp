@@ -78,7 +78,7 @@ const API_FIELDS = [
   { key: 'tokopedia_secret', label: 'Tokopedia Secret',      placeholder: '' },
 ];
 
-const C = '#546E7A';
+const C = '#5B52D1';
 
 export default function SettingsPage() {
   const { token } = useAuthStore();

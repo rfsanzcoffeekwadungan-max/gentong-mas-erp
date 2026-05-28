@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import { NavItem } from '@/layout/AppShell';
 
-export const SALES_CONFIG = { appName: 'Penjualan', appColor: '#00ACC1', appGradient: 'from-cyan-500 to-cyan-700', appIcon: ShoppingCart };
+export const SALES_CONFIG = { appName: 'Penjualan', appColor: '#5B52D1', appGradient: 'from-cyan-500 to-cyan-700', appIcon: ShoppingCart };
 export const SALES_NAV: NavItem[] = [
   { label: 'Smart Order Input', href: '/sales/smart-order',    icon: Zap },
   { label: 'Quotation',        href: '/sales/quotations',      icon: FileText,
@@ -54,7 +54,7 @@ export const SALES_NAV: NavItem[] = [
   { label: 'Pengaturan',       href: '/sales/settings',        icon: Settings },
 ];
 
-export const CRM_CONFIG = { appName: 'CRM', appColor: '#8E24AA', appGradient: 'from-purple-500 to-purple-700', appIcon: Users };
+export const CRM_CONFIG = { appName: 'CRM', appColor: '#5B52D1', appGradient: 'from-purple-500 to-purple-700', appIcon: Users };
 export const CRM_NAV: NavItem[] = [
   { label: 'Pipeline',         href: '/crm/pipeline',          icon: LayoutGrid, badge: 12 },
   { label: 'Leads',            href: '/crm/leads',             icon: Star },
@@ -67,7 +67,7 @@ export const CRM_NAV: NavItem[] = [
   { label: 'Pengaturan',       href: '/crm/settings',          icon: Settings },
 ];
 
-export const INVOICE_CONFIG = { appName: 'Invoice', appColor: '#1976D2', appGradient: 'from-blue-500 to-blue-700', appIcon: FileText };
+export const INVOICE_CONFIG = { appName: 'Invoice', appColor: '#5B52D1', appGradient: 'from-blue-500 to-blue-700', appIcon: FileText };
 export const INVOICE_NAV: NavItem[] = [
   { label: 'Invoice',            href: '/invoice/list',            icon: FileText, badge: 8,
     children: [
@@ -87,7 +87,7 @@ export const INVOICE_NAV: NavItem[] = [
   { label: 'Pengaturan',         href: '/invoice/settings',        icon: Settings },
 ];
 
-export const ACCOUNTING_CONFIG = { appName: 'Akuntansi', appColor: '#388E3C', appGradient: 'from-green-500 to-emerald-700', appIcon: DollarSign };
+export const ACCOUNTING_CONFIG = { appName: 'Akuntansi', appColor: '#5B52D1', appGradient: 'from-green-500 to-emerald-700', appIcon: DollarSign };
 export const ACCOUNTING_NAV: NavItem[] = [
   { label: 'Invoice',            href: '/invoice',                        icon: FileText, badge: 8 },
   { label: 'Bagan Akun',         href: '/accounting/chart-of-accounts',  icon: Layers,
@@ -137,7 +137,7 @@ export const ACCOUNTING_NAV: NavItem[] = [
   { label: 'Pengaturan',         href: '/accounting/settings',            icon: Settings },
 ];
 
-export const INVENTORY_CONFIG = { appName: 'Inventaris', appColor: '#F57C00', appGradient: 'from-amber-500 to-orange-600', appIcon: Package };
+export const INVENTORY_CONFIG = { appName: 'Inventaris', appColor: '#5B52D1', appGradient: 'from-amber-500 to-orange-600', appIcon: Package };
 export const INVENTORY_NAV: NavItem[] = [
   { label: 'Produk',             href: '/inventory/products',          icon: Package,
     children: [
@@ -165,7 +165,7 @@ export const INVENTORY_NAV: NavItem[] = [
   { label: 'Pengaturan',         href: '/inventory/settings',          icon: Settings },
 ];
 
-export const HR_CONFIG = { appName: 'Sumber Daya Manusia', appColor: '#C2185B', appGradient: 'from-pink-500 to-rose-600', appIcon: UserCheck };
+export const HR_CONFIG = { appName: 'Sumber Daya Manusia', appColor: '#5B52D1', appGradient: 'from-pink-500 to-rose-600', appIcon: UserCheck };
 export const HR_NAV: NavItem[] = [
   { label: 'Karyawan',           href: '/hr/employees',        icon: UserCheck,
     children: [
@@ -198,7 +198,7 @@ export const HR_NAV: NavItem[] = [
   { label: 'Pengaturan',        href: '/hr/settings',          icon: Settings },
 ];
 
-export const PAYROLL_CONFIG = { appName: 'Penggajian', appColor: '#7B1FA2', appGradient: 'from-purple-600 to-violet-700', appIcon: DollarSign };
+export const PAYROLL_CONFIG = { appName: 'Penggajian', appColor: '#5B52D1', appGradient: 'from-purple-600 to-violet-700', appIcon: DollarSign };
 export const PAYROLL_NAV: NavItem[] = [
   { label: 'Periode Gaji',       href: '/hr/payrolls/periods',     icon: Calendar },
   { label: 'Slip Gaji',          href: '/hr/payrolls/slips',       icon: FileText,
@@ -224,7 +224,7 @@ export const PAYROLL_NAV: NavItem[] = [
   { label: 'Pengaturan',         href: '/hr/payrolls/settings',    icon: Settings },
 ];
 
-export const PURCHASING_CONFIG = { appName: 'Pembelian', appColor: '#5D4037', appGradient: 'from-stone-500 to-stone-700', appIcon: Truck };
+export const PURCHASING_CONFIG = { appName: 'Pembelian', appColor: '#5B52D1', appGradient: 'from-stone-500 to-stone-700', appIcon: Truck };
 export const PURCHASING_NAV: NavItem[] = [
   { label: 'RFQ',                 href: '/purchasing/rfq',                      icon: FileText, badge: 4,
     children: [
@@ -254,7 +254,7 @@ export const PURCHASING_NAV: NavItem[] = [
   { label: 'Pengaturan',          href: '/purchasing/settings',                 icon: Settings },
 ];
 
-export const POS_CONFIG = { appName: 'Kasir (POS)', appColor: '#E64A19', appGradient: 'from-orange-500 to-red-600', appIcon: Monitor };
+export const POS_CONFIG = { appName: 'Kasir (POS)', appColor: '#5B52D1', appGradient: 'from-orange-500 to-red-600', appIcon: Monitor };
 export const POS_NAV: NavItem[] = [
   { label: 'Buka Kasir',  href: '/pos/cashier',      icon: Monitor },
   { label: 'Sesi Kasir',  href: '/pos/sessions',     icon: Calendar },
@@ -265,7 +265,7 @@ export const POS_NAV: NavItem[] = [
   { label: 'Pengaturan',  href: '/pos/settings',      icon: Settings },
 ];
 
-export const DELIVERY_CONFIG = { appName: 'Pengiriman', appColor: '#1565C0', appGradient: 'from-blue-700 to-indigo-700', appIcon: Truck };
+export const DELIVERY_CONFIG = { appName: 'Pengiriman', appColor: '#5B52D1', appGradient: 'from-blue-700 to-indigo-700', appIcon: Truck };
 export const DELIVERY_NAV: NavItem[] = [
   { label: 'Pengiriman',   href: '/delivery/areas',   icon: Truck },
   { label: 'Wilayah',      href: '/delivery/areas',   icon: MapPin },
@@ -273,7 +273,7 @@ export const DELIVERY_NAV: NavItem[] = [
   { label: 'Pengaturan',   href: '/delivery/settings',icon: Settings },
 ];
 
-export const WAREHOUSE_CONFIG = { appName: 'Gudang', appColor: '#F57C00', appGradient: 'from-amber-500 to-orange-600', appIcon: Package };
+export const WAREHOUSE_CONFIG = { appName: 'Gudang', appColor: '#5B52D1', appGradient: 'from-amber-500 to-orange-600', appIcon: Package };
 export const WAREHOUSE_NAV: NavItem[] = [
   { label: 'Dashboard',      href: '/gudang',               icon: BarChart2 },
   { label: 'Picking Order',  href: '/gudang/picking',       icon: ClipboardList },
@@ -284,7 +284,7 @@ export const WAREHOUSE_NAV: NavItem[] = [
   { label: 'Riwayat',        href: '/gudang/history',       icon: Clock },
 ];
 
-export const MANUFACTURING_CONFIG = { appName: 'Manufaktur', appColor: '#6D28D9', appGradient: 'from-violet-600 to-purple-700', appIcon: Factory };
+export const MANUFACTURING_CONFIG = { appName: 'Manufaktur', appColor: '#5B52D1', appGradient: 'from-violet-600 to-purple-700', appIcon: Factory };
 export const MANUFACTURING_NAV: NavItem[] = [
   { label: 'Bill of Material', href: '/manufacturing/bom',                icon: Layers,
     children: [
@@ -309,7 +309,7 @@ export const MANUFACTURING_NAV: NavItem[] = [
   { label: 'Pengaturan',       href: '/manufacturing/settings',           icon: Settings },
 ];
 
-export const SERVICE_CONFIG = { appName: 'Servis', appColor: '#DC2626', appGradient: 'from-red-500 to-rose-700', appIcon: Wrench };
+export const SERVICE_CONFIG = { appName: 'Servis', appColor: '#5B52D1', appGradient: 'from-red-500 to-rose-700', appIcon: Wrench };
 export const SERVICE_NAV: NavItem[] = [
   { label: 'Work Order',       href: '/service/work-orders',       icon: ClipboardList },
   { label: 'Estimasi Biaya',   href: '/service/estimates',         icon: DollarSign },
@@ -321,7 +321,7 @@ export const SERVICE_NAV: NavItem[] = [
   { label: 'Pengaturan',       href: '/service/settings',          icon: Settings },
 ];
 
-export const FLEET_CONFIG = { appName: 'Armada', appColor: '#0277BD', appGradient: 'from-blue-600 to-sky-700', appIcon: Car };
+export const FLEET_CONFIG = { appName: 'Armada', appColor: '#5B52D1', appGradient: 'from-blue-600 to-sky-700', appIcon: Car };
 export const FLEET_NAV: NavItem[] = [
   { label: 'Kendaraan',         href: '/fleet/vehicles',          icon: Car },
   { label: 'Dokumen Kendaraan', href: '/fleet/documents',         icon: FileText },
@@ -334,7 +334,7 @@ export const FLEET_NAV: NavItem[] = [
   { label: 'Pengaturan',       href: '/fleet/settings',           icon: Settings },
 ];
 
-export const RECRUITMENT_CONFIG = { appName: 'Rekrutmen', appColor: '#00897B', appGradient: 'from-teal-500 to-teal-700', appIcon: UserPlus };
+export const RECRUITMENT_CONFIG = { appName: 'Rekrutmen', appColor: '#5B52D1', appGradient: 'from-teal-500 to-teal-700', appIcon: UserPlus };
 export const RECRUITMENT_NAV: NavItem[] = [
   { label: 'Lowongan',            href: '/recruitment/positions',             icon: Briefcase },
   { label: 'Pelamar',             href: '/recruitment/applications',          icon: Users },
@@ -347,7 +347,7 @@ export const RECRUITMENT_NAV: NavItem[] = [
   { label: 'Pengaturan',          href: '/recruitment/settings',              icon: Settings },
 ];
 
-export const MARKETPLACE_CONFIG = { appName: 'Marketplace', appColor: '#E91E63', appGradient: 'from-pink-500 to-rose-600', appIcon: ShoppingBag };
+export const MARKETPLACE_CONFIG = { appName: 'Marketplace', appColor: '#5B52D1', appGradient: 'from-pink-500 to-rose-600', appIcon: ShoppingBag };
 export const MARKETPLACE_NAV: NavItem[] = [
   { label: 'Sinkronisasi Harga',  href: '/marketplace/price-sync',            icon: RefreshCw },
   { label: 'Reservasi Stok',      href: '/marketplace/stock-reservation',     icon: Package },
@@ -358,7 +358,7 @@ export const MARKETPLACE_NAV: NavItem[] = [
   { label: 'Pengaturan',          href: '/marketplace/settings',              icon: Settings },
 ];
 
-export const TAX_CONFIG = { appName: 'Tax Engine', appColor: '#0F766E', appGradient: 'from-teal-600 to-teal-800', appIcon: Calculator };
+export const TAX_CONFIG = { appName: 'Tax Engine', appColor: '#5B52D1', appGradient: 'from-teal-600 to-teal-800', appIcon: Calculator };
 export const TAX_NAV: NavItem[] = [
   { label: 'Setup Pajak',        href: '/tax/setup',         icon: Settings,
     children: [
@@ -390,7 +390,7 @@ export const TAX_NAV: NavItem[] = [
   { label: 'Pengaturan',         href: '/tax/settings',      icon: Settings },
 ];
 
-export const SETTINGS_CONFIG = { appName: 'Pengaturan', appColor: '#546E7A', appGradient: 'from-slate-500 to-slate-700', appIcon: Settings };
+export const SETTINGS_CONFIG = { appName: 'Pengaturan', appColor: '#5B52D1', appGradient: 'from-slate-500 to-slate-700', appIcon: Settings };
 export const SETTINGS_NAV: NavItem[] = [
   { label: 'Umum',               href: '/settings',                    icon: Settings },
   { label: 'User Management',    href: '/settings/users',              icon: Users },
@@ -409,7 +409,7 @@ export const SETTINGS_NAV: NavItem[] = [
   { label: 'Notifikasi',         href: '/notifications',               icon: Bell },
 ];
 
-export const REPORTS_CONFIG = { appName: 'Laporan & Analitik', appColor: '#7B1FA2', appGradient: 'from-purple-600 to-violet-700', appIcon: BarChart3 };
+export const REPORTS_CONFIG = { appName: 'Laporan & Analitik', appColor: '#5B52D1', appGradient: 'from-purple-600 to-violet-700', appIcon: BarChart3 };
 export const REPORTS_NAV: NavItem[] = [
   { label: 'Ringkasan',           href: '/reports',                    icon: BarChart2 },
   { label: 'Lap. Penjualan',      href: '/reports/sales',              icon: ShoppingCart,

@@ -9,7 +9,7 @@ import { Truck, ExternalLink, RefreshCw, Search, AlertTriangle, CheckCircle, Clo
 
 const C = {
   primary: '#5B52D1', border: '#EDE9FE', textDark: '#1E1B4B',
-  textMid: '#6B7280', textLight: '#9CA3AF', appColor: '#1D4ED8',
+  textMid: '#6B7280', textLight: '#9CA3AF', appColor: '#5B52D1',
 };
 
 const formatDate = (v: any) => v ? new Date(v).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) : '–';
