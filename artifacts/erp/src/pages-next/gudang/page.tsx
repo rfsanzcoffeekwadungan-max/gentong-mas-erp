@@ -46,8 +46,8 @@ export default function GudangPage() {
     { label: 'Barang Masuk', value: stats.incoming, icon: ArrowDownRight, color: '#3B82F6', bg: '#EFF6FF', change: 'Hari ini', up: true },
     { label: 'Barang Keluar', value: stats.outgoing, icon: ArrowUpRight, color: '#10B981', bg: '#D1FAE5', change: 'Hari ini', up: true },
     { label: 'Transfer', value: stats.transfers, icon: Truck, color: '#F59E0B', bg: '#FEF3C7', change: 'Antar gudang', up: true },
-    { label: 'Stock Opname', value: stats.stockOpname, icon: ClipboardCheck, color: '#8B5CF6', bg: '#F5F3FF', change: 'Aktif', up: true },
-    { label: 'Order Pending', value: stats.pending, icon: Clock, color: '#EF4444', bg: '#FEE2E2', change: 'Belum proses', up: false },
+    { label: 'Opname Stok', value: stats.stockOpname, icon: ClipboardCheck, color: '#8B5CF6', bg: '#F5F3FF', change: 'Aktif', up: true },
+    { label: 'Order Tertunda', value: stats.pending, icon: Clock, color: '#EF4444', bg: '#FEE2E2', change: 'Belum proses', up: false },
   ];
 
   const quickActions = [
@@ -55,7 +55,7 @@ export default function GudangPage() {
     { label: 'Barang Masuk', href: '/gudang/inbound', color: '#3B82F6' },
     { label: 'Barang Keluar', href: '/gudang/outbound', color: '#10B981' },
     { label: 'Transfer Stok', href: '/gudang/transfer', color: '#F59E0B' },
-    { label: 'Stock Opname', href: '/gudang/stock-opname', color: '#8B5CF6' },
+    { label: 'Opname Stok', href: '/gudang/stock-opname', color: '#8B5CF6' },
     { label: 'Riwayat', href: '/gudang/history', color: '#64748B' },
   ];
 
@@ -124,7 +124,7 @@ export default function GudangPage() {
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-sm font-bold" style={{ color: C.heading }}>Aktivitas Terkini</h2>
               <button className="flex items-center gap-1 text-xs" style={{ color: C.primary }}>
-                <RefreshCw className="h-3 w-3" /> Refresh
+                <RefreshCw className="h-3 w-3" /> Perbarui
               </button>
             </div>
             <div className="space-y-0">

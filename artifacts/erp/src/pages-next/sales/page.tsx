@@ -15,7 +15,7 @@ const recentOrders = [
   { id: 'SO-2026-0141', customer: 'CV Maju Bersama', amount: 'Rp 1,25 Jt', status: 'Menunggu', color: '#F59E0B' },
   { id: 'SO-2026-0140', customer: 'UD Berkah Jaya', amount: 'Rp 8,75 Jt', status: 'Terkirim', color: '#3B82F6' },
   { id: 'SO-2026-0139', customer: 'Toko Bintang', amount: 'Rp 2,1 Jt', status: 'Dikonfirmasi', color: '#10B981' },
-  { id: 'SO-2026-0138', customer: 'Toko Sejahtera', amount: 'Rp 675 rb', status: 'Draft', color: '#6B7280' },
+  { id: 'SO-2026-0138', customer: 'Toko Sejahtera', amount: 'Rp 675 rb', status: 'Draf', color: '#6B7280' },
 ];
 
 export default function SalesPage() {
@@ -25,21 +25,21 @@ export default function SalesPage() {
   if (!token) return null;
 
   const kpis = [
-    { label: 'Revenue Hari Ini', value: 'Rp 48,7 Jt', icon: DollarSign, color: '#10B981', bg: '#D1FAE5', change: '+12.4%', up: true },
-    { label: 'Sales Order', value: '127', icon: ShoppingCart, color: '#3B82F6', bg: '#EFF6FF', change: '+8 hari ini', up: true },
-    { label: 'Quotation', value: '34', icon: FileText, color: '#8B5CF6', bg: '#F5F3FF', change: 'Menunggu konfirmasi', up: true },
-    { label: 'Invoice Pending', value: 'Rp 18,7 Jt', icon: Clock, color: '#F59E0B', bg: '#FEF3C7', change: 'Belum lunas', up: false },
+    { label: 'Pendapatan Hari Ini', value: 'Rp 48,7 Jt', icon: DollarSign, color: '#10B981', bg: '#D1FAE5', change: '+12.4%', up: true },
+    { label: 'Order Penjualan', value: '127', icon: ShoppingCart, color: '#3B82F6', bg: '#EFF6FF', change: '+8 hari ini', up: true },
+    { label: 'Penawaran', value: '34', icon: FileText, color: '#8B5CF6', bg: '#F5F3FF', change: 'Menunggu konfirmasi', up: true },
+    { label: 'Invoice Tertunggak', value: 'Rp 18,7 Jt', icon: Clock, color: '#F59E0B', bg: '#FEF3C7', change: 'Belum lunas', up: false },
     { label: 'Pelanggan Aktif', value: '1.284', icon: Users, color: '#5B52D1', bg: '#EDE9FE', change: '+3.1%', up: true },
     { label: 'Target Bulanan', value: '87%', icon: Target, color: '#14B8A6', bg: '#CCFBF1', change: 'Rp 87/100 Jt', up: true },
   ];
 
   const quickActions = [
-    { label: 'Buat Sales Order', href: '/sales/orders', color: C.primary },
-    { label: 'Buat Quotation', href: '/sales/quotations', color: '#8B5CF6' },
-    { label: 'Smart Order Input', href: '/sales/smart-order', color: '#10B981' },
+    { label: 'Buat Order Penjualan', href: '/sales/orders', color: C.primary },
+    { label: 'Buat Penawaran', href: '/sales/quotations', color: '#8B5CF6' },
+    { label: 'Input Order Cepat', href: '/sales/smart-order', color: '#10B981' },
     { label: 'Lihat Pelanggan', href: '/customers', color: '#3B82F6' },
-    { label: 'Komisi Sales', href: '/sales/commission', color: '#F59E0B' },
-    { label: 'Laporan Sales', href: '/sales/reports', color: '#64748B' },
+    { label: 'Komisi Penjualan', href: '/sales/commission', color: '#F59E0B' },
+    { label: 'Laporan Penjualan', href: '/sales/reports', color: '#64748B' },
   ];
 
   return (
@@ -48,7 +48,7 @@ export default function SalesPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-xl font-bold" style={{ color: C.heading }}>Dashboard Penjualan</h1>
-            <p className="text-sm mt-0.5" style={{ color: C.muted }}>Monitoring performa sales & order hari ini</p>
+            <p className="text-sm mt-0.5" style={{ color: C.muted }}>Monitoring performa penjualan & order hari ini</p>
           </div>
           <a href="/sales/orders"
             className="flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white hover:opacity-90 transition-opacity"

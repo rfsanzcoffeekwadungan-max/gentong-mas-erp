@@ -11,11 +11,11 @@ import {
 const C = { primary: '#5B52D1', border: '#EDE9FE', card: '#FFFFFF', heading: '#1E1B4B', muted: '#9CA3AF', body: '#4B5563' };
 
 const pendingPOs = [
-  { id: 'PO-2026-0048', supplier: 'CV Sumber Makmur', amount: 'Rp 12,5 Jt', status: 'Menunggu Approval', color: '#F59E0B' },
+  { id: 'PO-2026-0048', supplier: 'CV Sumber Makmur', amount: 'Rp 12,5 Jt', status: 'Menunggu Persetujuan', color: '#F59E0B' },
   { id: 'PO-2026-0047', supplier: 'PT Alam Raya', amount: 'Rp 8,2 Jt', status: 'Dikonfirmasi', color: '#10B981' },
   { id: 'PO-2026-0046', supplier: 'UD Jaya Makmur', amount: 'Rp 3,7 Jt', status: 'Penerimaan', color: '#3B82F6' },
   { id: 'PO-2026-0045', supplier: 'PT Bintang Mas', amount: 'Rp 21 Jt', status: 'Dikonfirmasi', color: '#10B981' },
-  { id: 'PO-2026-0044', supplier: 'CV Harapan Jaya', amount: 'Rp 5,5 Jt', status: 'Draft', color: '#6B7280' },
+  { id: 'PO-2026-0044', supplier: 'CV Harapan Jaya', amount: 'Rp 5,5 Jt', status: 'Draf', color: '#6B7280' },
 ];
 
 export default function PurchasingPage() {
@@ -26,8 +26,8 @@ export default function PurchasingPage() {
 
   const kpis = [
     { label: 'Total PO Bulan Ini', value: 'Rp 84,2 Jt', icon: DollarSign, color: '#5B52D1', bg: '#EDE9FE', change: '+15.3%', up: true },
-    { label: 'PO Aktif', value: '23', icon: ShoppingBag, color: '#3B82F6', bg: '#EFF6FF', change: '8 menunggu approval', up: true },
-    { label: 'RFQ Pending', value: '12', icon: FileText, color: '#F59E0B', bg: '#FEF3C7', change: 'Belum direspon', up: false },
+    { label: 'PO Aktif', value: '23', icon: ShoppingBag, color: '#3B82F6', bg: '#EFF6FF', change: '8 menunggu persetujuan', up: true },
+    { label: 'Permintaan Tertunda', value: '12', icon: FileText, color: '#F59E0B', bg: '#FEF3C7', change: 'Belum direspon', up: false },
     { label: 'Penerimaan Barang', value: '7', icon: PackageCheck, color: '#10B981', bg: '#D1FAE5', change: 'Hari ini', up: true },
     { label: 'Hutang Supplier', value: 'Rp 42 Jt', icon: Clock, color: '#EF4444', bg: '#FEE2E2', change: 'Jatuh tempo 7 hari', up: false },
     { label: 'Supplier Aktif', value: '48', icon: Building2, color: '#14B8A6', bg: '#CCFBF1', change: 'Total terdaftar', up: true },
@@ -37,7 +37,7 @@ export default function PurchasingPage() {
     { label: 'Buat RFQ', href: '/purchasing/rfq', color: C.primary },
     { label: 'Buat PO', href: '/purchasing/purchase-orders', color: '#3B82F6' },
     { label: 'Terima Barang', href: '/purchasing/goods-receipts', color: '#10B981' },
-    { label: 'Approval Matrix', href: '/purchasing/approval-matrix', color: '#F59E0B' },
+    { label: 'Matriks Persetujuan', href: '/purchasing/approval-matrix', color: '#F59E0B' },
     { label: 'Data Supplier', href: '/purchasing/suppliers', color: '#14B8A6' },
     { label: 'Laporan', href: '/purchasing/reports', color: '#64748B' },
   ];
@@ -48,7 +48,7 @@ export default function PurchasingPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-xl font-bold" style={{ color: C.heading }}>Dashboard Pembelian</h1>
-            <p className="text-sm mt-0.5" style={{ color: C.muted }}>Monitoring RFQ, Purchase Order, dan penerimaan barang</p>
+            <p className="text-sm mt-0.5" style={{ color: C.muted }}>Monitoring permintaan, order pembelian, dan penerimaan barang</p>
           </div>
           <a href="/purchasing/rfq"
             className="flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white hover:opacity-90 transition-opacity"
@@ -96,7 +96,7 @@ export default function PurchasingPage() {
               <div className="flex items-start gap-2">
                 <AlertTriangle className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: '#F59E0B' }} />
                 <div>
-                  <p className="text-[12px] font-semibold" style={{ color: '#92400E' }}>8 PO Menunggu Approval</p>
+                  <p className="text-[12px] font-semibold" style={{ color: '#92400E' }}>8 PO Menunggu Persetujuan</p>
                   <p className="text-[11px] mt-0.5" style={{ color: '#78350F' }}>Perlu persetujuan segera</p>
                 </div>
               </div>
@@ -105,7 +105,7 @@ export default function PurchasingPage() {
 
           <div className="xl:col-span-3 rounded-2xl" style={{ backgroundColor: C.card, border: `1.5px solid ${C.border}`, boxShadow: '0 1px 4px rgba(47,43,61,.06)' }}>
             <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: `1px solid ${C.border}` }}>
-              <h2 className="text-sm font-bold" style={{ color: C.heading }}>Purchase Order Terbaru</h2>
+              <h2 className="text-sm font-bold" style={{ color: C.heading }}>Order Pembelian Terbaru</h2>
               <a href="/purchasing/purchase-orders" className="text-xs font-medium" style={{ color: C.primary }}>Lihat Semua →</a>
             </div>
             <div>

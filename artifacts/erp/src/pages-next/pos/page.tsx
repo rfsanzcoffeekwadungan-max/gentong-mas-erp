@@ -27,9 +27,9 @@ export default function POSPage() {
     { label: 'Omset Hari Ini', value: 'Rp 12 Jt', icon: DollarSign, color: '#10B981', bg: '#D1FAE5', change: '+18.2%', up: true },
     { label: 'Total Transaksi', value: '164', icon: ShoppingCart, color: '#3B82F6', bg: '#EFF6FF', change: '+22 jam ini', up: true },
     { label: 'Sesi Aktif', value: '3', icon: Monitor, color: '#5B52D1', bg: '#EDE9FE', change: 'Kasir buka', up: true },
-    { label: 'Rata-rata / Trx', value: 'Rp 73 rb', icon: TrendingUp, color: '#8B5CF6', bg: '#F5F3FF', change: '+5.3%', up: true },
+    { label: 'Rata-rata/Transaksi', value: 'Rp 73 rb', icon: TrendingUp, color: '#8B5CF6', bg: '#F5F3FF', change: '+5.3%', up: true },
     { label: 'Pelanggan Baru', value: '12', icon: Users, color: '#F59E0B', bg: '#FEF3C7', change: 'Hari ini', up: true },
-    { label: 'Transaksi Void', value: '2', icon: Clock, color: '#EF4444', bg: '#FEE2E2', change: 'Perlu disetujui', up: false },
+    { label: 'Transaksi Dibatalkan', value: '2', icon: Clock, color: '#EF4444', bg: '#FEE2E2', change: 'Perlu disetujui', up: false },
   ];
 
   const quickActions = [

@@ -29,13 +29,13 @@ export default function FinancePage() {
     { label: 'Pendapatan Bulan Ini', value: 'Rp 412 Jt', icon: ArrowUpRight, color: '#10B981', bg: '#D1FAE5', change: '+18.4%', up: true },
     { label: 'Pengeluaran Bulan Ini', value: 'Rp 287 Jt', icon: ArrowDownRight, color: '#EF4444', bg: '#FEE2E2', change: '+5.2%', up: false },
     { label: 'Laba Bersih', value: 'Rp 125 Jt', icon: TrendingUp, color: '#3B82F6', bg: '#EFF6FF', change: '+31.7%', up: true },
-    { label: 'Piutang Outstanding', value: 'Rp 68 Jt', icon: FileText, color: '#F59E0B', bg: '#FEF3C7', change: '12 invoice', up: false },
+    { label: 'Piutang Belum Lunas', value: 'Rp 68 Jt', icon: FileText, color: '#F59E0B', bg: '#FEF3C7', change: '12 faktur', up: false },
     { label: 'Hutang Jatuh Tempo', value: 'Rp 34 Jt', icon: AlertTriangle, color: '#EF4444', bg: '#FEE2E2', change: '7 hari lagi', up: false },
   ];
 
   const quickActions = [
     { label: 'Buat Invoice', href: '/invoice', color: C.primary },
-    { label: 'Jurnal Entry', href: '/accounting/journal-entry', color: '#3B82F6' },
+    { label: 'Entri Jurnal', href: '/accounting/journal-entry', color: '#3B82F6' },
     { label: 'Laporan Keuangan', href: '/accounting/reports', color: '#10B981' },
     { label: 'Buku Besar', href: '/accounting/general-ledger', color: '#8B5CF6' },
     { label: 'Neraca Saldo', href: '/accounting/trial-balance', color: '#F59E0B' },
@@ -48,7 +48,7 @@ export default function FinancePage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-xl font-bold" style={{ color: C.heading }}>Dashboard Keuangan</h1>
-            <p className="text-sm mt-0.5" style={{ color: C.muted }}>Overview keuangan, jurnal, dan laporan akuntansi</p>
+            <p className="text-sm mt-0.5" style={{ color: C.muted }}>Ringkasan keuangan, jurnal, dan laporan akuntansi</p>
           </div>
           <a href="/accounting/journal-entry"
             className="flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white hover:opacity-90 transition-opacity"

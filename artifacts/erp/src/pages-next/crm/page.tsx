@@ -14,7 +14,7 @@ const recentLeads = [
   { name: 'PT Karya Mandiri', contact: 'Hendra Wijaya', value: 'Rp 45 Jt', stage: 'Proposal', color: '#3B82F6' },
   { name: 'CV Sinar Terang', contact: 'Rina Astuti', value: 'Rp 12 Jt', stage: 'Negosiasi', color: '#F59E0B' },
   { name: 'Toko Berkah', contact: 'Dodi Kusuma', value: 'Rp 8,5 Jt', stage: 'Kualifikasi', color: '#8B5CF6' },
-  { name: 'UD Prima Jaya', contact: 'Siska Lestari', value: 'Rp 22 Jt', stage: 'Won', color: '#10B981' },
+  { name: 'UD Prima Jaya', contact: 'Siska Lestari', value: 'Rp 22 Jt', stage: 'Berhasil', color: '#10B981' },
   { name: 'PT Global Nusa', contact: 'Bambang Susilo', value: 'Rp 55 Jt', stage: 'Proposal', color: '#3B82F6' },
 ];
 
@@ -25,21 +25,21 @@ export default function CRMPage() {
   if (!token) return null;
 
   const kpis = [
-    { label: 'Pipeline Value', value: 'Rp 342 Jt', icon: DollarSign, color: '#5B52D1', bg: '#EDE9FE', change: '+22.1%', up: true },
-    { label: 'Leads Aktif', value: '87', icon: Star, color: '#F59E0B', bg: '#FEF3C7', change: '+12 minggu ini', up: true },
-    { label: 'Opportunity', value: '34', icon: TrendingUp, color: '#3B82F6', bg: '#EFF6FF', change: 'Dalam proses', up: true },
-    { label: 'Follow-up Hari Ini', value: '18', icon: Phone, color: '#EF4444', bg: '#FEE2E2', change: '7 overdue', up: false },
-    { label: 'Aktivitas Planned', value: '25', icon: Calendar, color: '#10B981', bg: '#D1FAE5', change: 'Minggu ini', up: true },
-    { label: 'Win Rate', value: '68%', icon: Target, color: '#14B8A6', bg: '#CCFBF1', change: '+4% bulan lalu', up: true },
+    { label: 'Nilai Penjualan', value: 'Rp 342 Jt', icon: DollarSign, color: '#5B52D1', bg: '#EDE9FE', change: '+22.1%', up: true },
+    { label: 'Prospek Aktif', value: '87', icon: Star, color: '#F59E0B', bg: '#FEF3C7', change: '+12 minggu ini', up: true },
+    { label: 'Peluang', value: '34', icon: TrendingUp, color: '#3B82F6', bg: '#EFF6FF', change: 'Dalam proses', up: true },
+    { label: 'Tindak Lanjut Hari Ini', value: '18', icon: Phone, color: '#EF4444', bg: '#FEE2E2', change: '7 terlambat', up: false },
+    { label: 'Aktivitas Terjadwal', value: '25', icon: Calendar, color: '#10B981', bg: '#D1FAE5', change: 'Minggu ini', up: true },
+    { label: 'Tingkat Konversi', value: '68%', icon: Target, color: '#14B8A6', bg: '#CCFBF1', change: '+4% bulan lalu', up: true },
   ];
 
   const quickActions = [
-    { label: 'Tambah Lead', href: '/crm/leads', color: C.primary },
-    { label: 'Lihat Pipeline', href: '/crm/pipeline', color: '#3B82F6' },
-    { label: 'Opportunity', href: '/crm/opportunities', color: '#F59E0B' },
-    { label: 'Follow-up', href: '/crm/followup', color: '#EF4444' },
+    { label: 'Tambah Prospek', href: '/crm/leads', color: C.primary },
+    { label: 'Lihat Saluran', href: '/crm/pipeline', color: '#3B82F6' },
+    { label: 'Peluang', href: '/crm/opportunities', color: '#F59E0B' },
+    { label: 'Tindak Lanjut', href: '/crm/followup', color: '#EF4444' },
     { label: 'Aktivitas', href: '/crm/activities', color: '#10B981' },
-    { label: 'Laporan CRM', href: '/crm/reports', color: '#64748B' },
+    { label: 'Laporan', href: '/crm/reports', color: '#64748B' },
   ];
 
   return (
@@ -48,12 +48,12 @@ export default function CRMPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-xl font-bold" style={{ color: C.heading }}>Dashboard CRM</h1>
-            <p className="text-sm mt-0.5" style={{ color: C.muted }}>Monitoring leads, pipeline, dan performa sales</p>
+            <p className="text-sm mt-0.5" style={{ color: C.muted }}>Monitoring prospek, peluang, dan performa penjualan</p>
           </div>
           <a href="/crm/leads"
             className="flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white hover:opacity-90 transition-opacity"
             style={{ backgroundColor: C.primary }}>
-            <Plus className="h-4 w-4" /> Tambah Lead
+            <Plus className="h-4 w-4" /> Tambah Prospek
           </a>
         </div>
 
@@ -96,8 +96,8 @@ export default function CRMPage() {
               <div className="flex items-start gap-2">
                 <AlertTriangle className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: '#EF4444' }} />
                 <div>
-                  <p className="text-[12px] font-semibold" style={{ color: '#991B1B' }}>7 Follow-up Overdue</p>
-                  <p className="text-[11px] mt-0.5" style={{ color: '#7F1D1D' }}>Segera hubungi prospects</p>
+                  <p className="text-[12px] font-semibold" style={{ color: '#991B1B' }}>7 Tindak Lanjut Tertunda</p>
+                  <p className="text-[11px] mt-0.5" style={{ color: '#7F1D1D' }}>Segera hubungi calon pelanggan</p>
                 </div>
               </div>
             </div>
@@ -105,8 +105,8 @@ export default function CRMPage() {
 
           <div className="xl:col-span-3 rounded-2xl" style={{ backgroundColor: C.card, border: `1.5px solid ${C.border}`, boxShadow: '0 1px 4px rgba(47,43,61,.06)' }}>
             <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: `1px solid ${C.border}` }}>
-              <h2 className="text-sm font-bold" style={{ color: C.heading }}>Leads & Opportunity Terbaru</h2>
-              <a href="/crm/pipeline" className="text-xs font-medium" style={{ color: C.primary }}>Lihat Pipeline →</a>
+              <h2 className="text-sm font-bold" style={{ color: C.heading }}>Prospek & Peluang Terbaru</h2>
+              <a href="/crm/pipeline" className="text-xs font-medium" style={{ color: C.primary }}>Lihat Saluran →</a>
             </div>
             <div>
               {recentLeads.map(({ name, contact, value, stage, color }, i) => (

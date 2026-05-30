@@ -11,10 +11,10 @@ import {
 const C = { primary: '#5B52D1', border: '#EDE9FE', card: '#FFFFFF', heading: '#1E1B4B', muted: '#9CA3AF', body: '#4B5563' };
 
 const recentSync = [
-  { platform: 'Tokopedia', products: 248, status: 'Sukses', time: '14:35', color: '#10B981' },
-  { platform: 'Shopee', products: 312, status: 'Sukses', time: '14:30', color: '#10B981' },
-  { platform: 'Lazada', products: 156, status: 'Error', time: '14:20', color: '#EF4444' },
-  { platform: 'TikTok Shop', products: 89, status: 'Sukses', time: '14:15', color: '#10B981' },
+  { platform: 'Tokopedia', products: 248, status: 'Berhasil', time: '14:35', color: '#10B981' },
+  { platform: 'Shopee', products: 312, status: 'Berhasil', time: '14:30', color: '#10B981' },
+  { platform: 'Lazada', products: 156, status: 'Gagal', time: '14:20', color: '#EF4444' },
+  { platform: 'TikTok Shop', products: 89, status: 'Berhasil', time: '14:15', color: '#10B981' },
   { platform: 'Blibli', products: 74, status: 'Menunggu', time: '14:00', color: '#F59E0B' },
 ];
 
@@ -25,11 +25,11 @@ export default function MarketplacePage() {
   if (!token) return null;
 
   const kpis = [
-    { label: 'Total SKU Sinkron', value: '879', icon: Package, color: '#5B52D1', bg: '#EDE9FE', change: '+12 baru', up: true },
-    { label: 'Sync Berhasil', value: '96.8%', icon: RefreshCw, color: '#10B981', bg: '#D1FAE5', change: '4 platform', up: true },
+    { label: 'Total SKU Tersinkron', value: '879', icon: Package, color: '#5B52D1', bg: '#EDE9FE', change: '+12 baru', up: true },
+    { label: 'Sinkronisasi Berhasil', value: '96.8%', icon: RefreshCw, color: '#10B981', bg: '#D1FAE5', change: '4 platform', up: true },
     { label: 'Reservasi Stok', value: '124', icon: ShoppingBag, color: '#3B82F6', bg: '#EFF6FF', change: 'Semua platform', up: true },
-    { label: 'Error Sync', value: '7', icon: AlertTriangle, color: '#EF4444', bg: '#FEE2E2', change: 'Perlu diperbaiki', up: false },
-    { label: 'Retur Pending', value: '5', icon: RotateCcw, color: '#F59E0B', bg: '#FEF3C7', change: 'Menunggu proses', up: false },
+    { label: 'Sinkronisasi Gagal', value: '7', icon: AlertTriangle, color: '#EF4444', bg: '#FEE2E2', change: 'Perlu diperbaiki', up: false },
+    { label: 'Retur Tertunda', value: '5', icon: RotateCcw, color: '#F59E0B', bg: '#FEF3C7', change: 'Menunggu proses', up: false },
     { label: 'Komisi Platform', value: 'Rp 4,2 Jt', icon: Percent, color: '#8B5CF6', bg: '#F5F3FF', change: 'Bulan ini', up: true },
   ];
 
@@ -38,8 +38,8 @@ export default function MarketplacePage() {
     { label: 'Reservasi Stok', href: '/marketplace/stock-reservation', color: '#3B82F6' },
     { label: 'Proses Retur', href: '/marketplace/returns', color: '#F59E0B' },
     { label: 'Komisi Platform', href: '/marketplace/commissions', color: '#8B5CF6' },
-    { label: 'Error Log', href: '/marketplace/error-log', color: '#EF4444' },
-    { label: 'Retry Sync', href: '/marketplace/retry-sync', color: '#14B8A6' },
+    { label: 'Log Kesalahan', href: '/marketplace/error-log', color: '#EF4444' },
+    { label: 'Ulangi Sinkronisasi', href: '/marketplace/retry-sync', color: '#14B8A6' },
   ];
 
   return (
@@ -54,7 +54,7 @@ export default function MarketplacePage() {
             onClick={() => navigate('/marketplace/price-sync')}
             className="flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-white hover:opacity-90 transition-opacity"
             style={{ backgroundColor: C.primary }}>
-            <Zap className="h-4 w-4" /> Sync Sekarang
+            <Zap className="h-4 w-4" /> Sinkronkan Sekarang
           </button>
         </div>
 
@@ -97,7 +97,7 @@ export default function MarketplacePage() {
               <div className="flex items-start gap-2">
                 <AlertTriangle className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: '#EF4444' }} />
                 <div>
-                  <p className="text-[12px] font-semibold" style={{ color: '#991B1B' }}>Lazada Sync Error</p>
+                  <p className="text-[12px] font-semibold" style={{ color: '#991B1B' }}>Gagal Sinkronisasi Lazada</p>
                   <p className="text-[11px] mt-0.5" style={{ color: '#7F1D1D' }}>7 produk gagal disinkronisasi</p>
                 </div>
               </div>
