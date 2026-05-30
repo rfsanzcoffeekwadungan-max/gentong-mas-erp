@@ -1,0 +1,81 @@
+// backend/prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  SYSTEM
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  // Nullable: users who only use Google OAuth won't have a password
+  password     String?
+  name         String?
+  googleId     String?  @unique
+  // 2FA via OTP email
+  is2FAEnabled Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  userTenants   UserTenant[]
+  otpCodes      OtpCode[]
+  refreshTokens RefreshToken[]
+}
+
+model Company {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  logoUrl   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userTenants UserTenant[]
+}
+
+// Junction table: which users belong to which companies and with what role
+model UserTenant {
+  id        String   @id @default(cuid())
+  userId    String
+  companyId String
+  role      Role     @default(ADMIN)
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, companyId])
+}
+
+model OtpCode {
+  id        String   @id @default(cuid())
+  userId    String
+  code      String
+  // OTP expires 5 minutes after creation
+  expiresAt DateTime
+  // Mark as used to prevent replay attacks
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  userId    String
+  // Hashed token stored in DB
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
